@@ -36,6 +36,6 @@ Constraints:
   a. Write:500.  
   b. Read:100k. 
 1. url max length:none. 
-1. shorturl analysis:none.
-1. shorturl expire time: none.  
+1. Is shorturl need to be analysis :no.
+1. shorturl expire time limit : none.  
 1. Availability>Consistency
