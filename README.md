@@ -17,7 +17,7 @@ performance into account.
   
 Constraints:  
 1. QPS:  
-  a. Write:500
+  a. Write:500.  
   b. Read:100k. 
 1. url max length:none. 
 1. shorturl analysis:none.
