@@ -1,4 +1,5 @@
 # URL Shortener
+## Requirement
 This project is for dacard pre-interview homework 
   
 Design and implement (with unit tests) an URL shortener using Go programming language.  
@@ -39,3 +40,24 @@ Constraints:
 1. Is shorturl need to be analysis :no.
 1. shorturl expire time limit : none.  
 1. Availability>Consistency
+
+
+## System Design
+# DataBase Design:  
+ Use Redis 
+ reason:  
+ 1. every record is small (<1kb)
+ 1. do not need to use join (there is no hard relationship between every records)
+ 1. it is a read-heavy system. 
+ 1. assume data limit
+    a. max url length 250 character (250Bytes) 
+    b. short url only contain A-Z,a-z,0-9. 62 charter
+ 1. storage need 500(Write QPS)*3600*24*30 (second of short url's survival time assume one month) =
+
+ URL Table
+ HashKey(Primary Key)|	OriginalURL	|CreateDate|	ExpireDate
+ --------------------|--------------|----------|------------
+ varchar(5)          |varchar(256)  |datetime  |datetime
+ 
+ 
+
