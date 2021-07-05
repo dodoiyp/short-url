@@ -44,7 +44,7 @@ Constraints:
 
 ## System Design
 # DataBase Design:  
- Use Redis 
+ Use Mysql and Redis(cache)
  reason:  
  1. every record is small (<1kb)
  1. do not need to use join (there is no hard relationship between every records)
