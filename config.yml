@@ -1,0 +1,18 @@
+system:
+  url-path-prefix: api
+  api-version: v1
+  port: 10000
+  connect-timeout: 10
+
+
+mysql:
+  username: root
+  password: password
+  database: tinyurl
+  host: 127.0.0.1
+  port: 3306
+  query: parseTime=True&loc=Local&timeout=10000ms
+  log-mode: true
+  table-prefix: tb
+  charset: utf8mb4
+  collation: utf8mb4_general_ci
