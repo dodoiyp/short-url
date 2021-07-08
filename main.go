@@ -8,9 +8,9 @@ import (
 	"os"
 	"os/signal"
 	"runtime/debug"
+	"short-url/initialize"
+	"short-url/pkg/global"
 	"time"
-	"tiny-url/initialize"
-	"tiny-url/pkg/global"
 )
 
 func main() {
@@ -22,6 +22,7 @@ func main() {
 
 	initialize.Config()
 	initialize.Mysql()
+	initialize.Cache()
 	r := initialize.Routers()
 
 	host := "0.0.0.0"

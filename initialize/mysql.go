@@ -2,13 +2,13 @@ package initialize
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 	"log"
+	"short-url/pkg/global"
 	"time"
-	"tiny-url/pkg/global"
 
-	_ "github.com/go-sql-driver/mysql"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 // init myql
@@ -49,7 +49,7 @@ func Mysql() {
 			}
 		}
 	}()
-	db, err := sql.Open("mysql", dsn)
+	db, err := gorm.Open(mysql.Open(dsn))
 	if err != nil {
 		panic(fmt.Sprintf("mysql init error : %v", err))
 	}

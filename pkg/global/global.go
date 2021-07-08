@@ -1,8 +1,12 @@
 package global
 
-import "database/sql"
+import (
+	lru "github.com/hashicorp/golang-lru"
+	"gorm.io/gorm"
+)
 
 var (
 	Conf  Configuration
-	Mysql *sql.DB
+	Mysql *gorm.DB
+	Cache *lru.Cache
 )

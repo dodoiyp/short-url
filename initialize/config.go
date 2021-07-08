@@ -2,7 +2,7 @@ package initialize
 
 import (
 	"fmt"
-	"tiny-url/pkg/global"
+	"short-url/pkg/global"
 
 	"github.com/spf13/viper"
 )

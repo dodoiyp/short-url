@@ -3,7 +3,7 @@ package initialize
 import (
 	"fmt"
 	"log"
-	"tiny-url/router"
+	"short-url/router"
 
 	"github.com/gin-gonic/gin"
 )
