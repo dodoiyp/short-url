@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"short-url/models"
 	"short-url/pkg/global"
 	"time"
 
@@ -56,5 +57,12 @@ func Mysql() {
 	init = true
 
 	global.Mysql = db
+	autoMigrate()
 	log.Printf("mysql init done")
+}
+func autoMigrate() {
+	global.Mysql.AutoMigrate(
+		new(models.Url),
+		new(models.Sequence),
+	)
 }
