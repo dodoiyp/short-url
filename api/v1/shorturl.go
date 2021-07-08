@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
+	"short-url/models"
 	"short-url/pkg/cache_service"
 	"short-url/pkg/request"
 	"short-url/pkg/service"
@@ -50,7 +51,7 @@ func CreateShortUrl(c *gin.Context) {
 		return
 	}
 
-	m := service.Url{
+	m := models.Url{
 		ShortUrl:  shortUrl,
 		Url:       req.Url,
 		ExpireAt:  *req.ExpireAt,

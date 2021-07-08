@@ -1,7 +1,9 @@
 package service
 
+import "short-url/models"
+
 type ShortUrlSevice interface {
-	CreateShortUrl(u *Url) error
-	GetUrl(shortUrl string) (*Url, error)
+	CreateShortUrl(u *models.Url) error
+	GetUrl(shortUrl string) (*models.Url, error)
 	NewKey() (string, error)
 }

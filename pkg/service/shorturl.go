@@ -1,6 +1,7 @@
 package service
 
 import (
+	"short-url/models"
 	"short-url/pkg/global"
 	"strconv"
 	"time"
@@ -10,17 +11,6 @@ import (
 )
 
 const timeFormat = "2006-01-02 15:04:05"
-
-type Url struct {
-	ShortUrl  string    `gorm:"size:20;uniqueIndex"`
-	Url       string    `gorm:"size:1024" binding:"required"`
-	ExpireAt  time.Time `binding:"required"`
-	CreatedAt time.Time `binding:"required"`
-}
-
-type Sequence struct {
-	ID int `gorm:"size:20;uniqueIndex"`
-}
 
 func NewShortService(c *gin.Context) ShortUrlSevice {
 	return &Service{
@@ -32,7 +22,7 @@ type Service struct {
 	db *gorm.DB
 }
 
-func (s *Service) CreateShortUrl(u *Url) error {
+func (s *Service) CreateShortUrl(u *models.Url) error {
 	if err := s.db.Create(u).Error; err != nil {
 		return err
 	}
@@ -40,8 +30,8 @@ func (s *Service) CreateShortUrl(u *Url) error {
 }
 
 //TODO : add where expiretime filter
-func (s *Service) GetUrl(shortUrl string) (*Url, error) {
-	u := &Url{}
+func (s *Service) GetUrl(shortUrl string) (*models.Url, error) {
+	u := &models.Url{}
 	result := s.db.Where("short_url = ? AND expire_at> ?", shortUrl, time.Now().Format(timeFormat)).First(&u)
 	if result.Error != nil {
 		return nil, result.Error
@@ -49,7 +39,7 @@ func (s *Service) GetUrl(shortUrl string) (*Url, error) {
 	return u, nil
 }
 func (s *Service) NewKey() (string, error) {
-	seq := Sequence{}
+	seq := models.Sequence{}
 	err := s.db.Create(&seq).Error
 	if err != nil {
 		return "", err
