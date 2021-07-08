@@ -8,10 +8,8 @@ type Configuration struct {
 }
 
 type SystemConfiguration struct {
-	ApiVersion     string `mapstructure:"api-version" json:"apiVersion"`
-	Port           int    `mapstructure:"port" json:"port"`
-	PprofPort      int    `mapstructure:"pprof-port" json:"pprofPort"`
-	ConnectTimeout int    `mapstructure:"connect-timeout" json:"connectTimeout"`
+	Port           int `mapstructure:"port" json:"port"`
+	ConnectTimeout int `mapstructure:"connect-timeout" json:"connectTimeout"`
 }
 
 type MysqlConfiguration struct {
