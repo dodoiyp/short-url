@@ -16,7 +16,7 @@ func (lco *LocalCacheObject) Find(shortUrl string) (string, bool) {
 		return "", !found
 	}
 
-	url, ok := val.(Url)
+	url, ok := val.(*Url)
 	if !ok {
 		fmt.Printf("cache data unsupport key:%v , data %v ", shortUrl, val)
 		return "", !found
