@@ -8,7 +8,7 @@ cache:
 
 
 mysql:
-  username: root
+  username: paul
   password: password
   database: shorturl
   host: 127.0.0.1

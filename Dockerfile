@@ -1,37 +1,27 @@
-FROM golang:1.16-alpine AS short-url
 
-ENV GO111MODULE=on
-ENV APP_HOME /app/gin-web-prod
+FROM golang:1.16.3-alpine3.13 as builder
 
-RUN apk update \
-  && apk add bash \
-  && apk add git \
-  && rm -rf /var/cache/apk/* /tmp/* /var/tmp/* $HOME/.cache
+# ARG GitTag=`git rev-parse --short=6 HEAD`
+ARG gitTag
+ADD $WORKSPACE /app
 
-RUN mkdir -p $APP_HOME
-
-WORKDIR $APP_HOME
-
-COPY go.mod go.sum ./
+WORKDIR /app
+RUN apk add gcc
+COPY go.* ./
 RUN go mod download
-COPY . .
+COPY . ./
 
-RUN chmod +x version.sh && ./version.sh
-RUN go build -o main-prod .
-FROM frolvlad/alpine-glibc:alpine-3.12
+RUN go build -ldflags "-X main.gitcommitnum=$gitTag"
 
-ENV GIN_WEB_MODE production
-ENV APP_HOME /app/gin-web-prod
-RUN mkdir -p $APP_HOME
 
-WORKDIR $APP_HOME
+FROM alpine:3.13.5
+ENV GOPATH /go/
+ENV GO_WORKDIR $GOPATH/src/shot-url
+WORKDIR /app
 
-COPY --from=gin-web $APP_HOME/conf ./conf/
-COPY --from=gin-web $APP_HOME/main-prod .
-COPY --from=gin-web $APP_HOME/gitversion .
+# copy binary into container
+COPY --from=builder $GO_WORKDIR/shot-url shot-url
+ADD ./config.yml ./
+RUN mkdir logger
 
-EXPOSE 8080
-CMD ["./main-prod", "-g", "daemon off;"]
-
-HEALTHCHECK --interval=5s --timeout=3s \
-  CMD curl -fs http://127.0.0.1:8080/api/ping || exit 1
+CMD ["./short-url"]
