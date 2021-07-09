@@ -3,8 +3,7 @@ system:
   connect-timeout: 10
 
 cache:
-  local-cache:
-    cache-size: 500
+  cachesize: 500
 
 
 mysql:
@@ -17,8 +16,6 @@ mysql:
   log-mode: true
   charset: utf8mb4
   collation: utf8mb4_general_ci
-  maxConnect: 300
-  iIdleConnect: 10
 
 logs:
   path: ./logger/server.log

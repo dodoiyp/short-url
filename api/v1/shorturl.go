@@ -4,11 +4,11 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
+	"short-url/cache"
+	"short-url/db"
 	"short-url/models"
-	"short-url/pkg/cache_service"
-	"short-url/pkg/request"
-	"short-url/pkg/service"
-	"short-url/pkg/utils"
+	"short-url/utils"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -20,7 +20,7 @@ var ErrExpiredError = errors.New("expired error")
 var ErrUrlError = errors.New("parse url error")
 
 func CreateShortUrl(c *gin.Context) {
-	req := &request.ShortURLRequest{}
+	req := &models.ShortURLRequest{}
 
 	if err := c.ShouldBind(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"err": err.Error()})
@@ -38,51 +38,40 @@ func CreateShortUrl(c *gin.Context) {
 		return
 	}
 
-	s := service.NewShortService(c)
-	key, err := s.NewKey()
+	//create sequence_id and encrypt
+	seqID, err := db.RetriveDBAccessModel().CreateSequenceAndGetID()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"err": err.Error()})
 		return
 	}
 
-	shortUrl, err := utils.Base62Encode("dog" + key)
+	seqIDStr := strconv.FormatInt(int64(seqID), 10)
+	shortUrl, err := utils.Base62Encode("shorturl" + seqIDStr)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"err": err.Error()})
 		return
 	}
 
-	m := models.Url{
-		ShortUrl:  shortUrl,
-		Url:       req.Url,
-		ExpireAt:  *req.ExpireAt,
-		CreatedAt: time.Now(),
-	}
-	err = s.CreateShortUrl(&m)
+	err = db.RetriveDBAccessModel().CreateUrl(shortUrl, req.Url, req.ExpireAt)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"err": err.Error()})
 		return
 	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"id":  shortUrl,
-		"url": c.Request.Host + "/" + shortUrl,
-	})
+	c.JSON(http.StatusOK, models.ShortUrlResponse{ID: shortUrl, Url: c.Request.Host + "/" + shortUrl})
 }
 
 func GetOriginalUrl(c *gin.Context) {
 
 	shortUrl := c.Param("shortUrl")
-	cs := cache_service.New(c)
 
-	cacheUrl, found := cs.Find(shortUrl)
+	cacheUrl, found := cache.RetriveCacheAccessModel().Find(shortUrl)
 	if found {
 		if cacheUrl != "" {
 			c.Redirect(http.StatusMovedPermanently, cacheUrl)
 		}
 	}
 
-	s := service.NewShortService(c)
-	url, err := s.GetUrl(shortUrl)
+	url, err := db.RetriveDBAccessModel().GetUrl(shortUrl)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			c.JSON(http.StatusNotFound, gin.H{"err": gorm.ErrRecordNotFound.Error()})
@@ -93,7 +82,10 @@ func GetOriginalUrl(c *gin.Context) {
 	}
 
 	//insert to cache
-	cs.Insert(shortUrl, &cache_service.Url{Url: url.Url, ExpireAt: url.ExpireAt})
+	err = cache.RetriveCacheAccessModel().Insert(shortUrl, url.Url, url.ExpireAt)
+	if err != nil {
+		//writing log
+	}
 	c.Redirect(http.StatusMovedPermanently, url.Url)
 
 }

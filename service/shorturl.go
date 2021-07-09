@@ -2,7 +2,7 @@ package service
 
 import (
 	"short-url/models"
-	"short-url/pkg/global"
+	"short-url/utils"
 	"strconv"
 	"time"
 
@@ -12,7 +12,7 @@ import (
 
 func NewShortService(c *gin.Context) ShortUrlSevice {
 	return &Service{
-		db: global.Mysql,
+		db: ,
 	}
 }
 
@@ -20,11 +20,28 @@ type Service struct {
 	db *gorm.DB
 }
 
-func (s *Service) CreateShortUrl(u *models.Url) error {
-	if err := s.db.Create(u).Error; err != nil {
-		return err
+func (s *Service) CreateShortUrl(url string, expireAt *time.Time) (string, error) {
+
+	//create sequence_id
+
+	seqID := strconv.FormatInt(int64(seq.ID), 10)
+	shortUrl, err := utils.Base62Encode("dog" + seqID)
+	if err != nil {
+		return "", err
 	}
-	return nil
+
+	createTime := time.Now()
+	m := models.Url{
+		ShortUrl:  shortUrl,
+		Url:       url,
+		ExpireAt:  expireAt,
+		CreatedAt: &createTime,
+	}
+	if err := s.db.Create(&m).Error; err != nil {
+		return "", err
+	}
+	
+	return shortUrl, nil
 }
 
 func (s *Service) GetUrl(shortUrl string) (*models.Url, error) {
@@ -34,13 +51,4 @@ func (s *Service) GetUrl(shortUrl string) (*models.Url, error) {
 		return nil, result.Error
 	}
 	return u, nil
-}
-func (s *Service) NewKey() (string, error) {
-	seq := models.Sequence{}
-	err := s.db.Create(&seq).Error
-	if err != nil {
-		return "", err
-	}
-	id := strconv.FormatInt(int64(seq.ID), 10)
-	return id, nil
 }
