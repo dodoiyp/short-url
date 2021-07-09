@@ -9,8 +9,8 @@ type Url struct {
 }
 
 type ShortURLRequest struct {
-	Url      string     `json:"url"`
-	ExpireAt *time.Time `json:"expireAt"`
+	Url      string     `json:"url" binding:"required"`
+	ExpireAt *time.Time `json:"expireAt" binding:"required"`
 }
 
 type ShortUrlResponse struct {
