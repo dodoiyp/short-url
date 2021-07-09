@@ -4,7 +4,7 @@ system:
 
 cache:
   local-cache:
-    cache-size: 500
+    cache-size: 1000000
 
 
 mysql:
