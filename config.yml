@@ -17,7 +17,7 @@ mysql:
   log-mode: true
   charset: utf8mb4
   collation: utf8mb4_general_ci
-  maxConnect: 300
+  maxConnect: 500
   iIdleConnect: 10
 
 logs:

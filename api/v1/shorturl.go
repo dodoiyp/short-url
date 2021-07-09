@@ -2,6 +2,7 @@ package v1
 
 import (
 	"errors"
+	"log"
 	"net/http"
 	"net/url"
 	"short-url/cache"
@@ -68,6 +69,7 @@ func GetOriginalUrl(c *gin.Context) {
 	if found {
 		if cacheUrl != "" {
 			c.Redirect(http.StatusMovedPermanently, cacheUrl)
+			return
 		}
 	}
 
@@ -85,6 +87,7 @@ func GetOriginalUrl(c *gin.Context) {
 	err = cache.RetriveCacheAccessModel().Insert(shortUrl, url.Url, url.ExpireAt)
 	if err != nil {
 		//writing log
+		log.Println("insert cache failed")
 	}
 	c.Redirect(http.StatusMovedPermanently, url.Url)
 

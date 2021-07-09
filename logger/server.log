@@ -1,0 +1,33 @@
+{"level":"info","ts":"2021-07-10T04:30:18.588+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T04:31:38.924+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T04:38:30.181+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T04:57:05.179+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T04:57:05.179+0800","caller":"tiny-url/main.go:89","msg":"http listen : listen tcp :80: bind: address already in use\n"}
+{"level":"info","ts":"2021-07-10T05:01:05.708+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T05:03:32.318+0800","caller":"tiny-url/main.go:111","msg":"exiting"}
+{"level":"info","ts":"2021-07-10T05:03:38.284+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T05:07:34.866+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T05:28:09.004+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:11:30.645+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:12:44.937+0800","caller":"tiny-url/main.go:111","msg":"exiting"}
+{"level":"info","ts":"2021-07-10T06:12:48.033+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:13:24.242+0800","caller":"tiny-url/main.go:111","msg":"exiting"}
+{"level":"info","ts":"2021-07-10T06:14:08.809+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:14:40.423+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:15:05.528+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:16:04.717+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:16:49.145+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:17:27.793+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:19:06.988+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:19:30.897+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:21:05.288+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:22:10.685+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:32:18.523+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:35:13.609+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T06:55:36.601+0800","caller":"tiny-url/main.go:111","msg":"exiting"}
+{"level":"info","ts":"2021-07-10T07:01:57.613+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T07:03:25.277+0800","caller":"tiny-url/main.go:111","msg":"exiting"}
+{"level":"info","ts":"2021-07-10T07:05:18.257+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T07:09:20.695+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T07:10:36.975+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
+{"level":"info","ts":"2021-07-10T07:12:18.284+0800","caller":"tiny-url/main.go:109","msg":"awaiting signal"}
