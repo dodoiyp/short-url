@@ -26,6 +26,7 @@ func CORSMiddleware() gin.HandlerFunc {
 }
 
 func InitRouter(r *gin.Engine) error {
+	r.Use(CORSMiddleware())
 	apiGroup := r.Group("/api")
 	version := apiGroup.Group("/v1")
 	{
