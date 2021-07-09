@@ -20,7 +20,7 @@ var ErrExpiredError = errors.New("expired error")
 var ErrUrlError = errors.New("parse url error")
 
 func CreateShortUrl(c *gin.Context) {
-	req := &models.ShortURLRequest{}
+	req := models.ShortURLRequest{}
 
 	if err := c.ShouldBind(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"err": err.Error()})
