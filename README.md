@@ -46,7 +46,7 @@ Constraints:
 > docker-compose up -d
 
 2. 運行服務
-> go run main.go -config ./config/app.dev.ini
+> go run main.go 
 
 3.測試api是否打通
 
