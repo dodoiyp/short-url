@@ -61,7 +61,6 @@ Constraints:
    1. 需要在創建時多增加邏輯檢查是否存在已經存在的話就將加密解果做二次加密
    2. 花錢升級機器 
 2. 由於短網址的產生的過程不需要與原網址有直接關聯所以可以用其他方式產生短網址後再將關聯存起來
-   初始版本為利用mysql 兩張表來實作類似的效果目前設計初始版本為  
 ![image](https://github.com/dodoiyp/short-url/blob/main/doc/v1/short_url_system%20design.jpg)  
 
 上傳網址流程  先建立兩張表 1張為儲存url的表 1張用來產生key的表sequence. 
@@ -69,6 +68,16 @@ Constraints:
 ![image](https://github.com/dodoiyp/short-url/blob/main/doc/v1/short_url-set-url.jpg)  
 短網址轉址流程  
 ![image](https://github.com/dodoiyp/short-url/blob/main/doc/v1/short_url_get_url.jpg)  
+##資料庫及三方套件選擇：
+  資料庫：mysql reason: heavyRead system 通常還是使用關聯資料庫居多 由於沒有時間去測試 nosql(mongoDB) 所以先選用mysql 實作
+  三方套件/框架/演算法選擇：  
+    1.base62 :不論是之後需要真的對短網址壓縮或是用發號器製作key 計算相對簡單比較不消耗效能
+    2.zap/log: 性能高
+    3.caache/lru: 由於短網址在轉址的需求上量會較大 故將熱點更新至local 緩存 選用lru 讓越多人點擊的短網址能持續存在緩存內（雖然現在還沒有實現其他緩存清理）
+    4.gorm:  為了快速實現(利用auto create table 功能 以及減少撰寫sql細節 專心在業務實現上)
+    5.gin ：https://hackernoon.com/the-myth-about-golang-frameworks-and-external-libraries-93cb4b7da50f。
+    6.viper: 先使用較熟悉的套件做 本題目與此套件較無直接關聯
+
 
 接下來優化的方向為下圖
 ![image](https://github.com/dodoiyp/short-url/blob/main/doc/v2/short_url_system_design_%20optimization.jpg)
